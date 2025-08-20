@@ -3,27 +3,17 @@ import streamlit as st
 import os
 import requests
 import base64
-import math
 
 OLLAMA_API_URL = "http://127.0.0.1:11434/api/generate"
 OLLAMA_MODEL = "phi3:mini"
-MAX_CHUNK_SIZE = 20000  # Increased for Phi-3's context window
-MAX_TOTAL_CHUNKS = 5    # Allow more chunks
-TOKEN_ESTIMATE_RATIO = 4 # Rough estimate of characters per token
 MAX_CHUNK_SIZE = 500
 MAX_TOTAL_CHUNKS = 3
 
 def chunk_text(text, chunk_size=MAX_CHUNK_SIZE):
-    """Split text into larger chunks, respecting Phi-3's context window."""
-    # Estimate total tokens (rough approximation)
-    estimated_tokens = len(text) / TOKEN_ESTIMATE_RATIO
-    
-    if estimated_tokens < 100000:  # Safe margin below 123K
-        return [text]  # Return full text as single chunk
-        
-    # If text is too large, split into chunks
-    chunks = []
+    """Split text into smaller, meaningful chunks."""
+    # Split into sentences first to maintain context
     sentences = [s.strip() for s in text.split('.') if s.strip()]
+    chunks = []
     current_chunk = []
     current_length = 0
     
@@ -42,13 +32,8 @@ def chunk_text(text, chunk_size=MAX_CHUNK_SIZE):
     if current_chunk:
         chunks.append('. '.join(current_chunk) + '.')
     
-    # Return all chunks if under max_total_chunks, otherwise combine some
-    if len(chunks) <= MAX_TOTAL_CHUNKS:
-        return chunks
-    
-    # Combine chunks to meet MAX_TOTAL_CHUNKS limit
-    chunk_size = math.ceil(len(chunks) / MAX_TOTAL_CHUNKS)
-    return [''.join(chunks[i:i + chunk_size]) for i in range(0, len(chunks), chunk_size)]
+    # Ensure we don't exceed max chunks but keep at least one
+    return chunks[:MAX_TOTAL_CHUNKS] if chunks else [text[:chunk_size]]
 
 def list_files(startpath): #Files can be changed 
     tree = ""
