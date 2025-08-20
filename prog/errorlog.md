@@ -1,4 +1,4 @@
-This errorlog, is brain dumps of how issues where resolved. Vibe coding seems not to be as affective when using online services i.e Codespaces. (May research why later and update)
+This errorlog, is brain dumps of how issues where resolved. Vibe coding seems not to be as effective when using online services i.e Codespaces. (May research why later and update)
 
 1st run 
 codespace doesnt pick up local instance of ollama
