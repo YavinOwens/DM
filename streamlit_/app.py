@@ -30,7 +30,7 @@ def list_pdfs(startpath):
 base_path = "/workspaces/DM/it-management-and-audit-source-main"
 pdf_files = list_pdfs(base_path)
 
-selected_pdf = st.selectbox("Select a PDF to view", ["None"] + pdf_files, help="Choose a PDF file to display , the selected PDF will also be used for context for prompting")
+selected_pdf = st.selectbox("Select a PDF to view", pdf_files, help="Choose a PDF file to display , the selected PDF will also be used for context for prompting")
 
 if selected_pdf:
     with open(selected_pdf, "rb") as f:
