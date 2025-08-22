@@ -1,0 +1,8 @@
+streamlit
+requests
+PyPDF2
+SQLAlchemy>=2.0
+psycopg[binary]
+pgvector
+python-dotenv
+
