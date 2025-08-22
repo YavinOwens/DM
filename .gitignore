@@ -131,5 +131,6 @@ Thumbs.db
 *.docx
 *.doc
 
-# Source materials (large files)
+# Source materials (large files) - exclude from both locations
+it-management-and-audit-source-main/
 DM/it-management-and-audit-source-main/

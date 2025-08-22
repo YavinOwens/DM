@@ -1,0 +1,1 @@
+need to create the .env file and move keys from ollama.py
